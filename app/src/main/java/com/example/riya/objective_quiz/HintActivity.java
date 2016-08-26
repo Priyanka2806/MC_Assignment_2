@@ -13,13 +13,16 @@ import android.widget.TextView;
 public class HintActivity extends AppCompatActivity {
 
     private static final String TAG = "HintActivity";
+    private static final String KEY_VALUE1 = "hint1";
+    private static final String KEY_VALUE2 = "hint2";
     private Button mShowHintButton;
+    private Button mBackButton;
     private TextView mDesciption;
     private TextView mHint;
 
     Intent returnIntent = new Intent();
     private String description = new String();
-    private int result = 0;
+    private int flag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +30,14 @@ public class HintActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hint);
         Log.d(TAG, "Inside Hint Activity");
 
+        //Button to see hint for answering the ques.
         mShowHintButton = (Button) findViewById(R.id.ShowHintButton);
         mShowHintButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                result = 1;
+                flag = 1;
                 mHint = (TextView) findViewById(R.id.textViewer1);
                 mHint.setText("HINT");
 
@@ -45,16 +49,54 @@ public class HintActivity extends AppCompatActivity {
                 mDesciption = (TextView) findViewById(R.id.textViewer2);
                 mDesciption.setText(description);
 
-                returnIntent.putExtra("result", "You have taken Hint, for this Question!");
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
+
 
             }
         });
 
+        //For getting back to QuizActivity
+        mBackButton = (Button) findViewById(R.id.BackButton1);
+        mBackButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if(flag == 1) {
+                    returnIntent.putExtra("result", "You have taken Hint, for this Question!");
+                    setResult(Activity.RESULT_OK, returnIntent);
+                    finish();
+                }
+                else{
+                    setResult(Activity.RESULT_CANCELED, returnIntent);
+                    finish();
+                }
+            }
+        });
+
+        if(savedInstanceState != null){
+            CharSequence s1 = savedInstanceState.getCharSequence(KEY_VALUE1);
+            CharSequence s2 = savedInstanceState.getCharSequence(KEY_VALUE2);
+
+            mHint = (TextView) findViewById(R.id.textViewer1);
+            mHint.setText(s2);
+            mDesciption = (TextView) findViewById(R.id.textViewer2);
+            mDesciption.setText(s1);
+
+        }
+
     }
 
 
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "Inside onSaveInstance");
+        final TextView saveHint1 = (TextView) findViewById(R.id.textViewer2);
+        final TextView saveHint2 = (TextView) findViewById(R.id.textViewer1);
+        CharSequence hint1 = saveHint1.getText();
+        CharSequence hint2 = saveHint2.getText();
+        savedInstanceState.putCharSequence(KEY_VALUE1, hint1);
+        savedInstanceState.putCharSequence(KEY_VALUE2, hint2);
+    }
 
     @Override
     public void onStart()

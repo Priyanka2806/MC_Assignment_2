@@ -14,7 +14,7 @@
         android:id="@+id/ShowAnswerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show Answer"
+        android:text="@string/showAnswerText"
         android:layout_gravity="top|center" />
     <LinearLayout
         android:layout_width= "wrap_content"
@@ -36,6 +36,14 @@
             android:textColor="@color/colorGrey"
             android:layout_gravity = "top|center" />
     </LinearLayout>
+    <Button
+        android:id="@+id/BackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/backText"
+        android:layout_gravity="bottom|end"
+        style="?android:attr/buttonBarButtonStyle"
+        android:drawableLeft="@drawable/arrow_left"/>
 </FrameLayout>
 
 

@@ -22,8 +22,6 @@ public class QuizActivity extends AppCompatActivity {
     private TextView mTextQuestion;
     private Button mHintButton;
     private Button mCheatButton;
-    private TextView mHintText;
-    private TextView mCheatText;
 
 
     private int temp = 0;
@@ -31,7 +29,6 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_VALUE = "randomNumberValue";
     private final Random rand = new Random();
     private int random_num = 0;
-    private String result = "";
 
 
     @Override
@@ -39,9 +36,6 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
         Log.d(TAG, "Inside onCreate");
-
-        mHintText = (TextView)findViewById(R.id.textViewer3);
-        mCheatText = (TextView)findViewById(R.id.textViewer6);
 
         //Action Listener attached with the True Button
         mTrueButton = (Button) findViewById(R.id.TrueButton);
@@ -54,7 +48,7 @@ public class QuizActivity extends AppCompatActivity {
                 temp = 1; //temp variable is defined to implement functionality - creates a toast 'Question Unanswered'
                 // when user tries to pressed Next Button, without answering the current question.
                 Context context = getApplicationContext();
-                CharSequence text = "";
+                CharSequence text;
                 boolean value = checkAnswer(random_num);
                 if(value)
                 {
@@ -82,7 +76,7 @@ public class QuizActivity extends AppCompatActivity {
                 Log.d(TAG, "Clicked False");
                 temp = 1;
                 Context context = getApplicationContext();
-                CharSequence text = "";
+                CharSequence text;
                 boolean value = checkAnswer(random_num);
                 if(!value)
                 {
@@ -110,6 +104,8 @@ public class QuizActivity extends AppCompatActivity {
                 Log.d(TAG, "Clicked Next");
                 mFalseButton.setTextColor(Color.BLACK);
                 mTrueButton.setTextColor(Color.BLACK);
+                mHintButton.setTextColor(Color.RED);
+                mCheatButton.setTextColor(Color.RED);
 
                 if(temp == 0)
                 {
@@ -120,8 +116,6 @@ public class QuizActivity extends AppCompatActivity {
                     toast.show();
                 }
                 else {
-                    mHintText.setText("");
-                    mCheatText.setText("");
                     temp = 0;
                     random_num = rand.nextInt(1000) + 1;
                     generatingQues();
@@ -136,6 +130,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 startActivityForResult(new Intent(getApplicationContext(),HintActivity.class), 1);
             }
         });
@@ -146,6 +141,7 @@ public class QuizActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
 
                 Intent intent = new Intent(getApplicationContext(),CheatActivity.class);
                 intent.putExtra("numberKey", random_num);
@@ -184,7 +180,7 @@ public class QuizActivity extends AppCompatActivity {
     //Function to check whether the Answer Clicked (Button pressed) by the user, matches the correct answer..
     private boolean checkAnswer(int numberToBeChecked){
         Log.d(TAG, "Inside CheckAnswer");
-        int i,var1=0,flag=0;
+        int i,var1,flag=0;
         boolean result = true;
         var1=numberToBeChecked/2;
         for(i=2;i<=var1;i++){
@@ -199,21 +195,32 @@ public class QuizActivity extends AppCompatActivity {
         return result;
     }
 
+    //Function to receive result from HintActivity and CheatActivity and display toast according to the message.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        //For HintActivity with requestCode as 1
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                result=data.getStringExtra("result");
-
-                mHintText.setText(result);
+                String result=data.getStringExtra("result");
+                mHintButton.setTextColor(Color.BLUE);
+                Context context = getApplicationContext();
+                CharSequence text = result;
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         }
+        //For CheatActivity with requestCode as 1
         else if (requestCode == 2) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("result");
-
-                mCheatText.setText(result);
+                mCheatButton.setTextColor(Color.BLUE);
+                Context context = getApplicationContext();
+                CharSequence text = result;
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         }
     }
@@ -223,6 +230,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "Inside onSaveInstance");
         savedInstanceState.putInt(KEY_VALUE, random_num);
+
         //To save current state details of the activity.
     }
 

@@ -9,5 +9,7 @@
     <string name="cheatText">Cheat</string>
     <string name="hintHeaderText">Hint:</string>
     <string name="descriptionText">Description</string>
+    <string name="showAnswerText">Show Answer</string>
     <string name="answerText">Answer</string>
+    <string name="showHintText">Show Hint</string>
 </resources>
