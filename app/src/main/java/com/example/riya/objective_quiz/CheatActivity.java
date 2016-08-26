@@ -73,7 +73,8 @@ public class CheatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(flag == 1) { //To distinguish between whether the user have seen the answer or not.
-                    returnIntent.putExtra("result", "Answer cheated, for this Question!");
+                    String message = "Answer cheated, for this Question!";
+                    returnIntent.putExtra("result", message);
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish(); // In this case result is passed to QuizActivity
                 }

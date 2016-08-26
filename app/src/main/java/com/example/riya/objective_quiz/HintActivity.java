@@ -60,7 +60,8 @@ public class HintActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(flag == 1) {
-                    returnIntent.putExtra("result", "Hint taken, for this Question!");
+                    String message = "Hint taken, for this Question!";
+                    returnIntent.putExtra("result", message);
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 }
