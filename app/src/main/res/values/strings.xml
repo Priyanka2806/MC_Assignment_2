@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ObjectiveQuiz</string>
+    <string name="question">"Question : "</string>
+    <string name="trueText">True</string>
+    <string name="falseText">False</string>
+    <string name="nextText">Next</string>
+    <string name="backText">Back</string>
+    <string name="hintText">Hint</string>
+    <string name="cheatText">Cheat</string>
+    <string name="hintHeaderText">Hint:</string>
+    <string name="descriptionText">Description</string>
+    <string name="answerText">Answer</string>
+</resources>
