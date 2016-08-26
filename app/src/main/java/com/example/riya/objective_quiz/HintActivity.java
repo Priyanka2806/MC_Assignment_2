@@ -2,7 +2,6 @@ package com.example.riya.objective_quiz;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,13 +14,12 @@ public class HintActivity extends AppCompatActivity {
     private static final String TAG = "HintActivity";
     private static final String KEY_VALUE1 = "hint1";
     private static final String KEY_VALUE2 = "hint2";
-    private Button mShowHintButton;
-    private Button mBackButton;
-    private TextView mDesciption;
+
+    private TextView mDescription;
     private TextView mHint;
 
-    Intent returnIntent = new Intent();
-    private String description = new String();
+    private final Intent returnIntent = new Intent();
+    private String description;
     private int flag = 0;
 
     @Override
@@ -31,23 +29,24 @@ public class HintActivity extends AppCompatActivity {
         Log.d(TAG, "Inside Hint Activity");
 
         //Button to see hint for answering the ques.
-        mShowHintButton = (Button) findViewById(R.id.ShowHintButton);
+        Button mShowHintButton = (Button) findViewById(R.id.ShowHintButton);
         mShowHintButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
+                String hint = "HINT";
                 flag = 1;
                 mHint = (TextView) findViewById(R.id.textViewer1);
-                mHint.setText("HINT");
+                mHint.setText(hint);
 
                 description = "\nA number, greater than 1 is called a Prime No., if it has only 2 factors- 1 & the number itself."
                         + "Suppose A is given number.\n" +
                         "1: Find a whole number(K) nearly greater than the square root of A. " +
                         "\n2: Test whether A is divisible by any prime number less than K. If no, A is a prime number, else No.";
 
-                mDesciption = (TextView) findViewById(R.id.textViewer2);
-                mDesciption.setText(description);
+                mDescription = (TextView) findViewById(R.id.textViewer2);
+                mDescription.setText(description);
 
 
 
@@ -55,13 +54,13 @@ public class HintActivity extends AppCompatActivity {
         });
 
         //For getting back to QuizActivity
-        mBackButton = (Button) findViewById(R.id.BackButton1);
+        Button mBackButton = (Button) findViewById(R.id.BackButton1);
         mBackButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 if(flag == 1) {
-                    returnIntent.putExtra("result", "You have taken Hint, for this Question!");
+                    returnIntent.putExtra("result", "Hint taken, for this Question!");
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 }
@@ -78,8 +77,8 @@ public class HintActivity extends AppCompatActivity {
 
             mHint = (TextView) findViewById(R.id.textViewer1);
             mHint.setText(s2);
-            mDesciption = (TextView) findViewById(R.id.textViewer2);
-            mDesciption.setText(s1);
+            mDescription = (TextView) findViewById(R.id.textViewer2);
+            mDescription.setText(s1);
 
         }
 

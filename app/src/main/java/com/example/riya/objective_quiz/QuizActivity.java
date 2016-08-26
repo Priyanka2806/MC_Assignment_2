@@ -18,11 +18,6 @@ import java.util.Random;
 public class QuizActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
-    private Button mNextButton;
-    private TextView mTextQuestion;
-    private Button mHintButton;
-    private Button mCheatButton;
-
 
     private int temp = 0;
     private static final String TAG = "QuizActivity";
@@ -96,7 +91,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
         //Action Listener attached with the Next Button
-        mNextButton = (Button) findViewById(R.id.next_button);
+        Button mNextButton = (Button) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -104,8 +99,8 @@ public class QuizActivity extends AppCompatActivity {
                 Log.d(TAG, "Clicked Next");
                 mFalseButton.setTextColor(Color.BLACK);
                 mTrueButton.setTextColor(Color.BLACK);
-                mHintButton.setTextColor(Color.RED);
-                mCheatButton.setTextColor(Color.RED);
+                //mHintButton.setTextColor(Color.RED);
+                //mCheatButton.setTextColor(Color.RED);
 
                 if(temp == 0)
                 {
@@ -124,7 +119,7 @@ public class QuizActivity extends AppCompatActivity {
         });
 
         //Action Listener for Hint Button
-        mHintButton = (Button) findViewById(R.id.hint_button);
+        Button mHintButton = (Button) findViewById(R.id.hint_button);
         mHintButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -136,7 +131,7 @@ public class QuizActivity extends AppCompatActivity {
         });
 
         //Action Listener for Cheat Button
-        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        Button mCheatButton = (Button) findViewById(R.id.cheat_button);
         mCheatButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -173,7 +168,7 @@ public class QuizActivity extends AppCompatActivity {
         String num = Integer.toString(random_num);
         String ques = " is a Prime Number?";
         String question = num + ques;
-        mTextQuestion=(TextView)findViewById(R.id.textViewer);
+        TextView mTextQuestion=(TextView)findViewById(R.id.textViewer);
         mTextQuestion.setText(question);
     }
 
@@ -199,13 +194,14 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        CharSequence text;
         //For HintActivity with requestCode as 1
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("result");
-                mHintButton.setTextColor(Color.BLUE);
+                //mHintButton.setTextColor(Color.BLUE);
                 Context context = getApplicationContext();
-                CharSequence text = result;
+                text = result;
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
@@ -215,9 +211,9 @@ public class QuizActivity extends AppCompatActivity {
         else if (requestCode == 2) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("result");
-                mCheatButton.setTextColor(Color.BLUE);
+                //mCheatButton.setTextColor(Color.BLUE);
                 Context context = getApplicationContext();
-                CharSequence text = result;
+                text = result;
                 int duration = Toast.LENGTH_SHORT;
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();

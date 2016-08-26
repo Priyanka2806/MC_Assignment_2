@@ -14,14 +14,12 @@ public class CheatActivity extends AppCompatActivity {
     private static final String TAG = "CheatActivity";
     private static final String KEY_VALUE1 = "answer1";
     private static final String KEY_VALUE2 = "answer2";
-    private Button mShowAnswerButton;
-    private Button mBackButton;
     private TextView mSolution;
     private TextView mAnswer;
 
     private Bundle bundle = new Bundle();
-    Intent returnIntent = new Intent();
-    private String ans = new String();
+    private final Intent returnIntent = new Intent();
+    private String ans;
     private int flag = 0;
 
     @Override
@@ -31,15 +29,16 @@ public class CheatActivity extends AppCompatActivity {
         Log.d(TAG, "Inside Cheat Activity");
 
         //Button for seeing Answer
-        mShowAnswerButton = (Button) findViewById(R.id.ShowAnswerButton);
+        Button mShowAnswerButton = (Button) findViewById(R.id.ShowAnswerButton);
         mShowAnswerButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 flag = 1;
 
+                String answer = "ANSWER";
                 mAnswer = (TextView) findViewById(R.id.textViewer4);
-                mAnswer.setText("ANSWER");
+                mAnswer.setText(answer);
 
                 //Displays the answer to the question according to the random number and solution passed by the QuizActivity
                 bundle = getIntent().getExtras();
@@ -68,13 +67,13 @@ public class CheatActivity extends AppCompatActivity {
 
 
         //To get back to the QuizActivity
-        mBackButton = (Button) findViewById(R.id.BackButton);
+        Button mBackButton = (Button) findViewById(R.id.BackButton);
         mBackButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 if(flag == 1) { //To distinguish between whether the user have seen the answer or not.
-                    returnIntent.putExtra("result", "You have cheated and seen the answer, for this Question!");
+                    returnIntent.putExtra("result", "Answer cheated, for this Question!");
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish(); // In this case result is passed to QuizActivity
                 }
